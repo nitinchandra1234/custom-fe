@@ -1,3 +1,3 @@
 {
-    "backendUrl": "http://localhost:5000"
+    "backendUrl": "http://ab01875a08b6740cdb23d826a689cb5b-1921559212.ap-south-1.elb.amazonaws.com:5000"
 }
