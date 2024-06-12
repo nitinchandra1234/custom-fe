@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage ('poll scm') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/nitinchandra1234/custom-fe.git']])
+            }
+        }
+        stage ('build') {
+            steps {
+                sh 'docker build -t 905418266946.dkr.ecr.ap-south-1.amazonaws.com/react:nitin ./frontend/'
+            }
+        }
+        stage ('push') {
+            steps {
+                sh 'docker push 905418266946.dkr.ecr.ap-south-1.amazonaws.com/react:nitin'
+            }
+        }
+        stage ('helm deploy') {
+            steps {
+                dir('react') {
+                    sh 'helm upgrade --install react . -f values.yaml -n app --set image.tag="nitin"'
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: app
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ab01875a08b6740cdb23d826a689cb5b-1921559212.ap-south-1.elb.amazonaws.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: react
+            port:
+              number: 3000
+      - path: /api/getJoke
+        pathType: Prefix
+        backend:
+          service: 
+            name: python
+            port:
+              number: 5000
